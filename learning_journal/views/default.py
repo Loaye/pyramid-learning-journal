@@ -1,4 +1,4 @@
-"""Set the default for the app"""
+"""Set the default for the app."""
 from pyramid.response import Response
 import io
 import os
