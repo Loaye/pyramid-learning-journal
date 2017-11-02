@@ -6,9 +6,8 @@ from learning_journal.views.default import (
     list_view,
     detail_view,
     create_view,
-    update_view
+    update_view,
 )
-
 
 @pytest.fixture
 def dummy_request():
@@ -44,36 +43,4 @@ def test_list_view_response_text_has_proper_content_type(dummy_request):
     """Test that list view returns expected content."""
     response = list_view(dummy_request)
     assert response.content_type == 'text/html'
-
-
-def test_list_view_response_text_has_proper_content(dummy_request):
-    """Test that list view returns expected content."""
-    response = list_view(dummy_request)
-    text = '<h1>Mark\'s Thoughtful Spot</h1>'
-    assert text in response.ubody
-
-
-def test_detail_view_response_text_has_proper_content_type(dummy_request):
-    """Test that list view returns expected content."""
-    response = detail_view(dummy_request)
-    assert response.content_type == 'text/html'
-
-
-def test_detail_view_response_text_has_proper_content(dummy_request):
-    """Test that list view returns expected content."""
-    response = detail_view(dummy_request)
-    text = '<h2 class="section-heading">Learning all the Things</h2>'
-    assert text in response.ubody
-
-
-def test_create_view_response_text_has_proper_content_type(dummy_request):
-    """Test that list view returns expected content."""
-    response = create_view(dummy_request)
-    assert response.content_type == 'text/html'
-
-
-def test_create_view_response_text_has_proper_content(dummy_request):
-    """Test that list view returns expected content."""
-    response = create_view(dummy_request)
-    text = '<p>Alright, self, create a awesome blog post here!</p>'
-    assert text in response.ubody
+    
