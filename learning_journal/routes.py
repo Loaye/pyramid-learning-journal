@@ -6,4 +6,4 @@ def includeme(config):
     config.add_route('list_view', '/')
     config.add_route('detail_view', '/journal/{id:\d+}')
     config.add_route('create_view', '/journal/new_entry')
-    config.add_route('update_view.html', '/{id:\d+}/edit_entry')
+    config.add_route('update_view', '/journal/{id:\d+}/edit_entry')
