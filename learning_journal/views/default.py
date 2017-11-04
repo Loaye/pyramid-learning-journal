@@ -1,33 +1,26 @@
 """Set the default for the app."""
-from pyramid.response import Response
-import io
-import os
+from pyramid.view import view_config
 
-HERE = os.path.dirname(__file__)
 
+@view_config(route_name="list_view", renderer="../templates/list_view.jinja2")
 def list_view(request):
     """Home Page."""
-    path = os.path.join(HERE, '../templates/list_view.html')
-    with io.open(path) as imported_text:
-        return Response(imported_text.read())
+    return {}
 
 
+@view_config(route_name="create_view", renderer="../templates/create_view.jinja2")
 def create_view(request):
     """Create a new blog post."""
-    path = os.path.join(HERE, '../templates/create_view.html')
-    with io.open(path) as imported_text:
-        return Response(imported_text.read())
+    return {}
 
 
+@view_config(route_name="detail_view", renderer="../templates/route_view.jinja2")
 def detail_view(request):
     """Show single blog post."""
-    path = os.path.join(HERE, '../templates/detail_view.html')
-    with io.open(path) as imported_text:
-        return Response(imported_text.read())
+    return {}
 
 
+@view_config(route_name="update_view", renderer="../templates/update_view.jinja2")
 def update_view(request):
     """Update an existing blog entry."""
-    path = os.path.join(HERE, '../templates/update_view.html')
-    with io.open(path) as imported_text:
-        return Response(imported_text.read())
+    return {}

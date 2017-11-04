@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <article>
+            <h1>{{ category }}</h1>
+            <hr />
+            <p>Created <strong>{{ creation_date }}</strong></p>
+            <hr />
+            <p>Amount: {{ amount }}</p>
+            <p>{{ description }}</p>
+        </article>
+    </body>
+</html>
