@@ -10,6 +10,7 @@ We determined that we wanted to use a template for the front end so *Pyramid* ju
 ## STEP 2
 ### What's going on here?
 =========================
+
 Step 1 is creating the scaffold with MVR(Model, Views, & Routes) with CRUD in mind for a control aspect. We set in our models, views, and routes.
 
 Model will hold the basic structure.
