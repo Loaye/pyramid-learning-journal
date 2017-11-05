@@ -1,11 +1,9 @@
-<!DOCTYPE html>
-<html>
-    <head></head>
-    <body>
-        <article>
-            <h2>{{ title }}</h2>
-            <p>Created <strong>{{ creation_date }}</strong></p>
-            <p>{{ body }}</p>
-        </article>
-    </body>
-</html>
+{% extends 'layout.jinja2' %}
+
+{% block content %}
+<h1>{{ entry.title }}</h1>
+<hr />
+<p>Created <strong>{{ entry.creation_date }}</strong></p>
+<hr />
+<p>{{ entry.body }}</p>
+{% endblock %}
