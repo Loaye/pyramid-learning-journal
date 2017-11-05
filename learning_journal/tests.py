@@ -66,3 +66,10 @@ def test_list_view():
     request = testing.DummyRequest()
     info = list_view(request)
     assert isinstance(info, dict)
+
+def test_detail_view():
+    """Test that what's returned by the view is a dictionary of values."""
+    request = testing.DummyRequest()
+    request.matchdict['id'] = 13
+    info = detail_view(request)
+    assert isinstance(info, dict)
