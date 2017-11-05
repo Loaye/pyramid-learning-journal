@@ -43,6 +43,6 @@ View Ex.
 ```
 
 
-##Authors
+## Authors
 * [Jacob Carstens](https://github.com/Loaye)
 * [Marco Zangari](https://github.com/marco-zangari)
