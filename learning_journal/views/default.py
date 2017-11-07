@@ -1,7 +1,7 @@
 """Set the default for the app."""
 from pyramid.view import view_config
 from datetime import datetime
-from pyramid.httpexceptions import HTTPNotFound
+from pyramid.httpexceptions import HTTPNotFound, HTTPFound, HTTPBadRequest
 from learning_journal.data.entry_data import ENTRIES
 
 
@@ -9,7 +9,7 @@ from learning_journal.data.entry_data import ENTRIES
 def list_view(request):
     """Home Page."""
     entry = request.dbsession.query(learning_journal).all()
-    if entry is NONE:
+    if entry is None:
         raise HTTPNotFound
     return {
         "entries": ENTRIES
