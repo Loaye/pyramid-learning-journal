@@ -3,16 +3,17 @@ from pyramid.view import view_config
 from datetime import datetime
 from pyramid.httpexceptions import HTTPNotFound, HTTPFound, HTTPBadRequest
 from learning_journal.data.entry_data import ENTRIES
+from learning_journal.models.mymodel import Journal
 
 
 @view_config(route_name="home", renderer="../templates/list.jinja2")
 def list_view(request):
     """Home Page."""
-    entry = request.dbsession.query(learning_journal).all()
+    entry = request.dbsession.query(Journal).all()
     if entry is None:
         raise HTTPNotFound
     return {
-        "entries": ENTRIES
+        "entries": entry
     }
 
 
@@ -20,7 +21,7 @@ def list_view(request):
 def detail_view(request):
     """Show single blog post."""
     entry_id = int(request.matchdict['id'])
-    entry = request.dbsession.query(learning_journal).get(entry_id)
+    entry = request.dbsession.query(Journal).get(entry_id)
     for entry in ENTRIES:
         if entry["id"] == entry_id:
             return{"entry" : entry }
