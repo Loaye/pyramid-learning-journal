@@ -17,12 +17,9 @@ class MyModel(Base):
     body = Column(Unicode)
     creation_date = Column(DateTime)
 
-    def push_to_dict(self):
-        """Pushes attributes to the dictionary."""
-        'id': self.id,
-        'title': self.title,
-        'body': self.body,
-        'creation_date': self.creation_date
-
-
-Index('my_index', MyModel.name, unique=True, mysql_length=255)
+    # def push_to_dict(self):
+    #     """Pushes attributes to the dictionary."""
+    #     "id": self.id,
+    #     "title": self.title,
+    #     "body": self.body,
+    #     "creation_date": self.creation_date

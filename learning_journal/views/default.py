@@ -8,6 +8,9 @@ from learning_journal.data.entry_data import ENTRIES
 @view_config(route_name="home", renderer="../templates/list.jinja2")
 def list_view(request):
     """Home Page."""
+    entry = request.dbsession.query(learning_journal).all()
+    if entry is NONE:
+        raise HTTPNotFound
     return {
         "entries": ENTRIES
     }
@@ -17,6 +20,7 @@ def list_view(request):
 def detail_view(request):
     """Show single blog post."""
     entry_id = int(request.matchdict['id'])
+    entry = request.dbsession.query(learning_journal).get(entry_id)
     for entry in ENTRIES:
         if entry["id"] == entry_id:
             return{"entry" : entry }
