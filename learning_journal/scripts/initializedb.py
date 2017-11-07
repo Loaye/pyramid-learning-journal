@@ -42,6 +42,12 @@ def main(argv=sys.argv):
 
     with transaction.manager:
         dbsession = get_tm_session(session_factory, transaction.manager)
-
-        model = Journal(name='one', value=1)
-        dbsession.add(model)
+        journal_models = []
+        for entry in ENTRIES:
+            new_entry = Journal(
+                title=entry["title"],
+                body=entry["body"],
+                creation_date=datetime.now(),
+            )
+            journal_models.append(new_entry)
+        dbsession.add_all(journal_models)
