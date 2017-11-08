@@ -28,10 +28,9 @@ def detail_view(request):
             "title": entry.title,
             "body": entry.body,
             "creation_date": entry.creation_date
-    }
+        }
     else:
         raise HTTPNotFound
-        
 
 
 @view_config(route_name="create", renderer="../templates/create.jinja2")
