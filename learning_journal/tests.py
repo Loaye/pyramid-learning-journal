@@ -1,6 +1,7 @@
 
 """Test default.py."""
 from __future__ import unicode_literals
+from learning_journal.data.entry_data import ENTRIES
 from pyramid import testing
 import pytest
 
@@ -11,7 +12,24 @@ from learning_journal.views.default import (
     update_view,
 )
 
-from learning_journal.data.entry_data import ENTRIES
+@pytest.fixture(scope="session")
+def configure(request):
+    """Sets up an instance configure"""
+    config = testing.setUp(
+        settings={'sqlalchemy.url': 'postgres://localhost:5432/test_learning_journal'})
+    config.include("learning_journal.models")
+    config.include("learning_journal.routes")
+
+    def teardown():
+        testing.tearDown()
+
+    request.addfinalizer(teardown)
+    return config
+
+@pytest.fixture(scope="session")
+def db_session(configure, request)
+    """Create a database session"""
+    SessionFactory = 
 
 @pytest.fixture
 def dummy_request():
