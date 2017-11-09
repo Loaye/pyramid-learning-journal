@@ -3,7 +3,7 @@ import sys
 import transaction
 from learning_journal.models.mymodel import Journal
 from learning_journal.data.entry_data import ENTRIES
-import datetime from datetime
+from datetime import datetime
 
 from pyramid.paster import (
     get_appsettings,

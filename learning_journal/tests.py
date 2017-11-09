@@ -26,10 +26,10 @@ def configure(request):
     request.addfinalizer(teardown)
     return config
 
-@pytest.fixture(scope="session")
-def db_session(configure, request)
-    """Create a database session"""
-    SessionFactory = 
+# @pytest.fixture(scope="session")
+# def db_session(configure, request)
+#     """Create a database session"""
+#     SessionFactory = 
 
 @pytest.fixture
 def dummy_request():
