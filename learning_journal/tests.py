@@ -1,12 +1,14 @@
 
 """Test default.py."""
 from __future__ import unicode_literals
+from faker import Faker
 from pyramid import testing
 from learning_journal.data.entry_data import ENTRIES
 from learning_journal.models.mymodel import Base
 from learning_journal.models import Journal
 from datetime import datetime
 import pytest
+import random
 
 from learning_journal.views.default import (
     list_view,
@@ -50,6 +52,17 @@ def dummy_request(db_session):
     request.dbsession = db_session
     return request
 
+FAKE_FACTORY = Faker()
+ENTRY_LIST = [Journal(
+    title=FAKE_FACTORY.text(10),
+    body=FAKE_FACTORY.text(100),
+    creation_date=datetime.now()
+) for i in range(20)]
+
+@pytest.fixture
+def add_models(dummy_request):
+    """Add models to the db"""
+    dummy_request.dbsession.add_all(ENTRY_LIST)
 
 # def test_list_view_response_status_code_200_ok(dummy_request):
 #     """Test if request will return 200 ok response."""
@@ -122,3 +135,17 @@ def test_list_view_returns_dict(dummy_request):
     from learning_journal.views.default import list_view
     response = list_view(dummy_request)
     assert isinstance(response, dict)
+
+def test_list_view_returns_empty_when_database_empty(dummy_request):
+    """List view returns nothing when there is no data."""
+    from learning_journal.views.default import list_view
+    response = list_view(dummy_request)
+    assert len(response['entries']) == 1
+
+def test_list_view_returns_count_matching_database(dummy_request):
+    """Home view response matches database count."""
+    from learning_journal.views.default import list_view
+    response = list_view(dummy_request)
+    query = dummy_request.dbsession.query(Journal)
+    assert len(response['entries']) == query.count()
+
