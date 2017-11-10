@@ -1,18 +1,25 @@
 from sqlalchemy import (
     Column,
+    DateTime,
     Index,
     Integer,
     Text,
+    Unicode
 )
 
 from .meta import Base
 
 
-class MyModel(Base):
+class Journal(Base):
     __tablename__ = 'models'
     id = Column(Integer, primary_key=True)
-    name = Column(Text)
-    value = Column(Integer)
+    title = Column(Unicode)
+    body = Column(Unicode)
+    creation_date = Column(DateTime)
 
-
-Index('my_index', MyModel.name, unique=True, mysql_length=255)
+    # def push_to_dict(self):
+    #     """Pushes attributes to the dictionary."""
+    #     "id": self.id,
+    #     "title": self.title,
+    #     "body": self.body,
+    #     "creation_date": self.creation_date

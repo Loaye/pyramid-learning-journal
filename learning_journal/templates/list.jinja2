@@ -1,0 +1,15 @@
+{% extends "layout.jinja2" %}
+
+{% block content %}
+{% if entries %}
+    {% for entry in entries %}
+        <article>
+            <h2><a href="{{ request.route_url('detail', id=entry.id) }}">{{ entry.title }}</a></h2>
+            <p>Created <strong>{{ entry.creation_date }}</strong></p>
+            <p>{{ entry.body }}</p>
+        </article>
+    {% endfor %}
+{% else %}
+    <p>No entries present, please add an entry to view an entry.</p>
+{% endif %}
+{% endblock %}

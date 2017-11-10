@@ -1,33 +1,49 @@
 """Set the default for the app."""
-from pyramid.response import Response
-import io
-import os
+from pyramid.view import view_config
+from learning_journal.data.entry_data import ENTRIES
+from datetime import datetime
+from pyramid.httpexceptions import HTTPNotFound, HTTPFound, HTTPBadRequest
+from learning_journal.models.mymodel import Journal
 
-HERE = os.path.dirname(__file__)
 
+@view_config(route_name="home", renderer="../templates/list.jinja2")
 def list_view(request):
     """Home Page."""
-    path = os.path.join(HERE, '../templates/list_view.html')
-    with io.open(path) as imported_text:
-        return Response(imported_text.read())
+    entry = request.dbsession.query(Journal).all()
+    if entry is None:
+        raise HTTPNotFound
+    return {
+        "entries": entry
+    }
 
 
-def create_view(request):
-    """Create a new blog post."""
-    path = os.path.join(HERE, '../templates/create_view.html')
-    with io.open(path) as imported_text:
-        return Response(imported_text.read())
-
-
+@view_config(route_name="detail", renderer="../templates/detail.jinja2")
 def detail_view(request):
     """Show single blog post."""
-    path = os.path.join(HERE, '../templates/detail_view.html')
-    with io.open(path) as imported_text:
-        return Response(imported_text.read())
+    entry_id = int(request.matchdict['id'])
+    entry = request.dbsession.query(Journal).get(entry_id)
+    if entry:
+        return {
+            "id": entry.id,
+            "title": entry.title,
+            "body": entry.body,
+            "creation_date": entry.creation_date
+        }
+    else:
+        raise HTTPNotFound
 
 
+@view_config(route_name="create", renderer="../templates/create.jinja2")
+def create_view(request):
+    """Create a new blog post."""
+    return {
+       
+    }
+
+
+@view_config(route_name="update", renderer="../templates/update.jinja2")
 def update_view(request):
     """Update an existing blog entry."""
-    path = os.path.join(HERE, '../templates/update_view.html')
-    with io.open(path) as imported_text:
-        return Response(imported_text.read())
+    return {
+        "entries": id
+    }
