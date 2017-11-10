@@ -64,6 +64,33 @@ def add_models(dummy_request):
     """Add models to the db"""
     dummy_request.dbsession.add_all(ENTRY_LIST)
 
+@pytest.fixture(scope="session")
+def testapp(request):
+    from webtest import TestApp
+    from learning_journal import main
+
+    app = main({}, **{"sqlalchemy.url": "postgres:///test_learning_journal"})
+    testapp = TestApp(app)
+
+    SessionFactory = app.registry["dbsession_factory"]
+    engine = SessionFactory().bind
+    Base.metadata.create_all(bind=engine)
+
+    def tearDown():
+        Base.metadata.drop_all(bind=engine)
+
+    request.addfinalizer(tearDown)
+    return testapp
+
+@pytest.fixture
+def fill_the_db(testapp):
+    SessionFactory = testapp.app.registry["dbsession_factory"]
+    with transaction.manager:
+        dbsession = get_tm_session(SessionFactory, transaction.manager)
+        dbsession.add_all(ENTRIES)
+
+    return dbsession
+
 # def test_list_view_response_status_code_200_ok(dummy_request):
 #     """Test if request will return 200 ok response."""
 #     response = list_view(dummy_request)
