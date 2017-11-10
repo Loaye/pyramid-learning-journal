@@ -1,8 +1,8 @@
 """Set the default for the app."""
 from pyramid.view import view_config
+from learning_journal.data.entry_data import ENTRIES
 from datetime import datetime
 from pyramid.httpexceptions import HTTPNotFound, HTTPFound, HTTPBadRequest
-from learning_journal.data.entry_data import ENTRIES
 from learning_journal.models.mymodel import Journal
 
 
