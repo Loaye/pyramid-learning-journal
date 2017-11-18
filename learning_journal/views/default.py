@@ -36,9 +36,18 @@ def detail_view(request):
 @view_config(route_name="create", renderer="../templates/create.jinja2")
 def create_view(request):
     """Create a new blog post."""
-    return {
-       
-    }
+    if request.method == "POST":
+            if not all([field in request.POST for field in ['title', 'body']]):
+                raise HTTPBadRequest
+            new_entry = Entry(
+                title=request.POST['title'],
+                creation_date=datetime.now().strftime('%B %d, %Y'),
+                body=request.POST['body']
+            )
+            request.dbsession.add(new_entry)
+            return HTTPFound(request.route_url('home'))
+
+    return {}
 
 
 @view_config(route_name="update", renderer="../templates/update.jinja2")
