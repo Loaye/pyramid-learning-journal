@@ -1,9 +1,9 @@
 {% extends 'layout.jinja2' %}
 
 {% block content %}
-<h1>{{ entry.title }}</h1>
+<h2>{{ title }}</h2>
 <hr />
-<p>Created <strong>{{ entry.creation_date }}</strong></p>
+<p>Created <strong>{{ creation_date }}</strong></p>
 <hr />
-<p>{{ entry.body }}</p>
+<p>{{ body }}</p>
 {% endblock %}
