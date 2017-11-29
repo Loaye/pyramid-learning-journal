@@ -39,7 +39,7 @@ def create_view(request):
     if request.method == "POST":
             if not all([field in request.POST for field in ['title', 'body']]):
                 raise HTTPBadRequest
-            new_entry = Entry(
+            new_entry = Journal(
                 title=request.POST['title'],
                 creation_date=datetime.now().strftime('%B %d, %Y'),
                 body=request.POST['body']
