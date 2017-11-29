@@ -37,16 +37,10 @@
         <div class="collapse navbar-collapse">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="list_view.html">Home</a>
+              <a class="nav-link" href="{{request.route_url('home')}}">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="detail_view.html">Detail</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="create_view.html">Create</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="update_view.html">Edit Post</a>
+              <a class="nav-link" href="{{request.route_url('create')}}">Create</a>
             </li>
           </ul>
         </div>
