@@ -36,14 +36,35 @@ def detail_view(request):
 @view_config(route_name="create", renderer="../templates/create.jinja2")
 def create_view(request):
     """Create a new blog post."""
-    return {
-       
-    }
+    if request.method == "POST" and request.POST:
+        form_names = [ 'title', 'body' ]
+        form_data = request.POST
+        new_entry = Journal(
+            title=request.POST['title'],
+            creation_date=datetime.now().strftime('%B %d, %Y'),
+            body=request.POST['body']
+        )
+        request.dbsession.add(new_entry)
+        return{}
+    data = request.POST
+    return data
 
 
-@view_config(route_name="update", renderer="../templates/update.jinja2")
+@view_config(route_name='update', renderer='../templates/update.jinja2')
 def update_view(request):
-    """Update an existing blog entry."""
-    return {
-        "entries": id
-    }
+    """Show single blog post."""
+    post_id = int(request.matchdict['id'])
+    post = request.dbsession.query(Journal).get(post_id)
+    if not post:
+        return HTTPNotFound
+    if request.method == "GET":
+        return{
+            "title": "Update",
+            "post": post,
+        }
+    if request.method == "POST":
+        post.title = request.POST['title']
+        post.body = request.POST['body']
+        request.dbsession.add(post)
+        request.dbsession.flush()
+        return HTTPFound(request.route_url('detail', id=post_id))
